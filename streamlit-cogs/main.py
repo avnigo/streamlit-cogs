@@ -18,20 +18,17 @@ def add_to_map(
         labels = [Path(url).name for url in urls]
 
     for url, label in zip(urls, labels):
-        # Get bands and reverse order (BGR)
         if not bands:
-            bands = leafmap.cog_bands(url)[::-1]
+            # Get bands and reverse order (BGR)
+            # bands = leafmap.cog_bands(url)[::-1]
+            bands = leafmap.cog_bands(url)
 
         # For clean state or autoscale override
         if "rescale" not in st.session_state or autoscale:
             meta = leafmap.cog_stats(url)
-            print(meta)
-            print(meta.keys())
             st.session_state["meta"] = meta
             st.session_state["rescale"] = [
-                f"{meta['b3']['min']},{meta['b3']['max']}",
-                f"{meta['b2']['min']},{meta['b2']['max']}",
-                f"{meta['b1']['min']},{meta['b1']['max']}",
+                f"{meta[band]['min']},{meta[band]['max']}" for band in bands
             ]
 
         # Get rescale option from state if none is given
@@ -70,7 +67,7 @@ def update_map_from_url(bands=None, rescale=None):
 
 def main():
     with header:
-        st.title("COG Tiling Visualization")
+        st.title("COG Visualization")
 
     with options:
         (
@@ -141,7 +138,7 @@ def main():
 
 
 if __name__ == "__main__":
-    st.set_page_config(page_title="COGs Visualization", layout="wide")
+    st.set_page_config(page_title="COG Visualization", layout="wide")
 
     header = st.container()
     options = st.container()
