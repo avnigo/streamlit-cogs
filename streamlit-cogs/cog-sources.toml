@@ -1,0 +1,6 @@
+# Preload URLs organized by group and subgroup (example structure below)
+[Swath_1]
+layer_1 = "http://oin-hotosm.s3.amazonaws.com/5a95f32c2553e6000ce5ad2e/0/10edab38-1bdd-4c06-b83d-6e10ac532b7d.tif"
+
+[Swath_2]
+layer_1 = "https://modis-vi-nasa.s3-us-west-2.amazonaws.com/MOD13A1.006/2018.01.01.tif"
